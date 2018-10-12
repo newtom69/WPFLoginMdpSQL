@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Configuration;
 using static System.Console;
+using System.Security.Cryptography;
 
 
 
@@ -72,6 +73,12 @@ namespace Ressources
             string mail;
             DateTime dateNaissance;
             int age;
+            string hash;
+
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                hash = GetHash(sha256Hash, Mdp.Password);
+            }
 
             try
             {
@@ -86,7 +93,7 @@ namespace Ressources
                     {
                         command.CommandText = " SELECT id" +
                                               " FROM GodwinWPF1" +
-                                              $" WHERE Login = '{Login.Text}' and Mdp = 'toto'";
+                                              $" WHERE Login = '{Login.Text}' and Mdp = '{hash}'";
 
                         object retourExecScalar = command.ExecuteScalar();
                         if (retourExecScalar != null)
@@ -117,5 +124,17 @@ namespace Ressources
 
             //}
         }
+
+        private static string GetHash(HashAlgorithm hashAlgorithm, string input)
+        {
+            byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
+
     }
 }

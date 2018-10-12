@@ -10,9 +10,9 @@
         <Border CornerRadius="25" BorderThickness="3" BorderBrush="Black">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock FontSize="20" Text="Connexion :" Margin="5"></TextBlock>
-                <TextBox Text="Login" x:Name="Login" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="30" Width="175" Margin="5"></TextBox>
-                <PasswordBox x:Name="Mdp" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="30" Width="175" Margin="5"></PasswordBox>
-                <Button Click="Button_Click" Height="30" Width="175" Margin="5" Content="Se connecter"></Button>
+                <TextBox Text="Login" x:Name="Login" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="30" Width="175" Margin="5"/>
+                <PasswordBox x:Name="Mdp" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="30" Width="175" Margin="5"/>
+                <Button Click="Button_Click" Height="30" Width="175" Margin="5" Content="Se connecter"/>
             </StackPanel>
         </Border>
     </Grid>
