@@ -27,14 +27,14 @@ namespace Ressources
     public partial class PageLogin : Window
     {
 
-        
+
 
 
         public PageLogin()
         {
             InitializeComponent();
 
-          
+
 
             string prenomAuteur1 = ConfigurationManager.AppSettings["prenom1"];
             string prenomAuteur2 = ConfigurationManager.AppSettings["prenom2"];
@@ -66,19 +66,16 @@ namespace Ressources
         {
             //MessageBox.Show("connexion en cours");
             string login;
-            string mdp;
             int idPersonne;
             string nomPersonne;
             string prenomPersonne;
             string mail;
             DateTime dateNaissance;
             int age;
-            string hash;
+            string mdpHash;
 
             using (SHA256 sha256Hash = SHA256.Create())
-            {
-                hash = GetHash(sha256Hash, Mdp.Password);
-            }
+                mdpHash = GetHash(sha256Hash, Mdp.Password);
 
             try
             {
@@ -91,28 +88,39 @@ namespace Ressources
 
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = " SELECT id" +
+                        command.CommandText = " SELECT id, Login, Nom, Prenom, DateNaissance, Mail" +
                                               " FROM GodwinWPF1" +
-                                              $" WHERE Login = '{Login.Text}' and Mdp = '{hash}'";
+                                              $" WHERE Login = '{Login.Text}' and Mdp = '{mdpHash}'";
 
-                        object retourExecScalar = command.ExecuteScalar();
-                        if (retourExecScalar != null)
+
+                        SqlDataReader reader = command.ExecuteReader();
+                        bool mdpOk = false;
+                        while (reader.Read())
                         {
-                            idPersonne = (int)retourExecScalar;
-                            MessageBox.Show("Connexion réussie");
+                            mdpOk = true;   
+                            idPersonne = (int)reader["id"];
+                            login = (string)reader["Login"];
+                            nomPersonne = (string)reader["Nom"]; ;
+                            prenomPersonne = (string)reader["Prenom"]; ;
+                            mail = (string)reader["Mail"]; ;
+                            dateNaissance = (DateTime)reader["DateNaissance"];
+                            //age = DateTime.Now.Year - dateNaissance.Year;
+                            var nbjours = DateTime.Today - dateNaissance;
+                            age = nbjours.Days/365;
+                            MessageBox.Show("Vos informations :\n" +
+                                $"Nom : {nomPersonne}\nPrénom : {prenomPersonne}\nmail : {mail}\nVotre age : {age} ans","Connexion Réussie");
                         }
-                        else
+                        if (!mdpOk)
                         {
                             MessageBox.Show("Utilisateur ou mot de passe incorrect");
+
                         }
                     }
                 }
             }
             catch (SqlException ex)
             {
-                //WriteLine("Erreur SQL");
-                //WriteLine(e.Message);
-
+                MessageBox.Show("Erreur de connexion à la base de données");
             }
             catch (Exception ex)
             {
