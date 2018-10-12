@@ -26,16 +26,9 @@ namespace Ressources
     /// </summary>
     public partial class PageLogin : Window
     {
-
-
-
-
         public PageLogin()
         {
             InitializeComponent();
-
-
-
             string prenomAuteur1 = ConfigurationManager.AppSettings["prenom1"];
             string prenomAuteur2 = ConfigurationManager.AppSettings["prenom2"];
             string prenomAuteur3 = ConfigurationManager.AppSettings["prenom3"];
@@ -57,14 +50,11 @@ namespace Ressources
                         (e.Source as TextBox).Text = "Login";
                     }
                     break;
-                default:
-                    break;
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("connexion en cours");
             string login;
             int idPersonne;
             string nomPersonne;
@@ -73,6 +63,8 @@ namespace Ressources
             DateTime dateNaissance;
             int age;
             string mdpHash;
+
+            (sender as Button).Content = "Connexion en cours...";
 
             using (SHA256 sha256Hash = SHA256.Create())
                 mdpHash = GetHash(sha256Hash, Mdp.Password);
@@ -104,7 +96,6 @@ namespace Ressources
                             prenomPersonne = (string)reader["Prenom"]; ;
                             mail = (string)reader["Mail"]; ;
                             dateNaissance = (DateTime)reader["DateNaissance"];
-                            //age = DateTime.Now.Year - dateNaissance.Year;
                             var nbjours = DateTime.Today - dateNaissance;
                             age = nbjours.Days/365;
                             MessageBox.Show("Vos informations :\n" +
@@ -131,6 +122,8 @@ namespace Ressources
             //{
 
             //}
+
+            (sender as Button).Content = "Se connecter";
         }
 
         private static string GetHash(HashAlgorithm hashAlgorithm, string input)
