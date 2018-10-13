@@ -53,7 +53,7 @@ namespace Ressources
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Connexion(object sender, RoutedEventArgs e)
         {
             string login;
             int idPersonne;
@@ -66,8 +66,8 @@ namespace Ressources
 
             (sender as Button).Content = "Connexion en cours...";
 
-            using (SHA256 sha256Hash = SHA256.Create())
-                mdpHash = GetHash(sha256Hash, Mdp.Password);
+            using (SHA256 Hash = SHA256.Create())
+                mdpHash = GetHash(Hash, Mdp.Password);
 
             try
             {
@@ -82,7 +82,7 @@ namespace Ressources
                     {
                         command.CommandText = " SELECT id, Login, Nom, Prenom, DateNaissance, Mail" +
                                               " FROM GodwinWPF1" +
-                                              $" WHERE Login = '{Login.Text}' and Mdp = '{mdpHash}'";
+                                             $" WHERE Login = '{Login.Text}' and Mdp = '{mdpHash}'";
 
 
                         SqlDataReader reader = command.ExecuteReader();
@@ -115,15 +115,14 @@ namespace Ressources
             }
             catch (Exception ex)
             {
-                //WriteLine("Erreur non SQL");
-                //WriteLine(e.Message);
+                MessageBox.Show("Erreur générique non SQL dans le programme");
             }
             //finally
-            //{
+            {
+                (sender as Button).Content = "Se connecter";
+            }
 
-            //}
-
-            (sender as Button).Content = "Se connecter";
+            
         }
 
         private static string GetHash(HashAlgorithm hashAlgorithm, string input)
@@ -137,5 +136,12 @@ namespace Ressources
             return sBuilder.ToString();
         }
 
+        private void PageLogin_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Connexion(BoutonConnexion, null);
+            }
+        }
     }
 }
