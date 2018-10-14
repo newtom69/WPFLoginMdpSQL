@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ressources"
         mc:Ignorable="d"
-        Title="Connexion" Height="302" Width="269" ResizeMode="NoResize" KeyDown="PageLogin_OnKeyDown">
+        Title="Connexion" Height="302" Width="269" ResizeMode="NoResize" KeyDown="ToucheClavier">
     <Grid Background="{StaticResource TileBrush2}">
         <Border CornerRadius="25" BorderThickness="3" BorderBrush="Black">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
