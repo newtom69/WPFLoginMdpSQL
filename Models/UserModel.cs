@@ -32,5 +32,7 @@ namespace Ressources.Models
         }
 
         public int Age => (DateTime.Today - _DateNaissance).Days / 365;
+
+        public string PrenomNomAge => $"{Prenom} {Nom} {Age} ans";
     }
 }

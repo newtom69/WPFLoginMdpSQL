@@ -8,10 +8,7 @@
         Title="Window1" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding UserModelData.Nom}"/>
-            <TextBlock Text="{Binding UserModelData.Prenom}"/>
-            <TextBlock Text="{Binding UserModelData.DateNaissance}"/>
-            <TextBlock Text="{Binding UserModelData.Age}"/>
+            <TextBlock Text="{Binding UserModelData.PrenomNomAge}"/>
         </StackPanel>
     </Grid>
 </Window>
