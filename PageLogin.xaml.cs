@@ -17,14 +17,13 @@ namespace Ressources
         public PageLogin()
         {
             InitializeComponent();
-            string prenomAuteur1 = ConfigurationManager.AppSettings["prenom1"];
-            string prenomAuteur2 = ConfigurationManager.AppSettings["prenom2"];
-            string prenomAuteur3 = ConfigurationManager.AppSettings["prenom3"];
+            string prenomAuteur = ConfigurationManager.AppSettings["prenom"];
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if ((e.Source as TextBox).Text == "Login") (e.Source as TextBox).Text = "";
+            if ((e.Source as TextBox).Text == "Login")
+                (e.Source as TextBox).Text = "";
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -99,11 +98,11 @@ namespace Ressources
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Erreur de connexion à la base de données");
+                MessageBox.Show("Erreur de connexion à la base de données\n" + ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur générique non SQL dans le programme");
+                MessageBox.Show("Erreur générique non SQL dans le programme\n" + ex.Message);
             }
             finally
             {
