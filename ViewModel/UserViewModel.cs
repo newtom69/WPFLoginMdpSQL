@@ -17,5 +17,13 @@ namespace Ressources.ViewModel
             get => _UserModelData;
             set => SetProperty(ref _UserModelData, value);
         }
+
+        public UserViewModel()
+        {
+            _UserModelData = new UserModel();
+            _UserModelData.Prenom = "Thomas";
+            _UserModelData.Nom = "Vuille";
+            _UserModelData.DateNaissance = DateTime.Parse("1978-11-13");
+        }
     }
 }

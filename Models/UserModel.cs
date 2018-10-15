@@ -9,12 +9,28 @@ namespace Ressources.Models
 {
     public class UserModel : BindableBase
     {
-        private string _Name;
+        private string _Nom;
+        private string _Prenom;
+        private DateTime _DateNaissance;
 
-        public string Name
+        public string Nom
         {
-            get => _Name;
-            set => SetProperty(ref _Name, value);
+            get => _Nom;
+            set => SetProperty(ref _Nom, value);
         }
+
+        public string Prenom
+        {
+            get => _Prenom;
+            set => SetProperty(ref _Prenom, value);
+        }
+
+        public DateTime DateNaissance
+        {
+            get => _DateNaissance;
+            set => SetProperty(ref _DateNaissance, value);
+        }
+
+        public int Age => (DateTime.Today - _DateNaissance).Days / 365;
     }
 }
